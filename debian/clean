@@ -1,6 +1,8 @@
 compile
 install-sh
 aclocal.m4
+libtool.m4
+ltdl.m4
 ltmain.sh
 Makefile.in
 config.guess
@@ -48,3 +50,6 @@ buildtools/Makefile.in
 membership/Makefile.in
 membership/ccm/Makefile.in
 membership/quorumd/Makefile.in
+debian/heartbeat.init
+debian/heartbeat.service
+debian/heartbeat.tmpfile

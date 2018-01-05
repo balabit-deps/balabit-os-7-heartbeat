@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -2087,7 +2087,7 @@
+ fi
+ 
+ if test "$GCC" = yes; then
+-  CFLAGS="$CFLAGS -ggdb3"
++  CFLAGS="$CFLAGS -ggdb2"
+   if
+     cc_supports_flag -funsigned-char
+   then

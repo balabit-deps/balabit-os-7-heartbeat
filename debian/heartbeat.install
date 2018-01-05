@@ -2,6 +2,8 @@ etc/ha.d/README.config
 etc/ha.d/harc
 etc/ha.d/rc.d/ask_resources
 etc/ha.d/rc.d/hb_takeover
+etc/ha.d/rc.d/ip-request
+etc/ha.d/rc.d/ip-request-resp
 etc/ha.d/rc.d/status
 etc/ha.d/resource.d/
 etc/ha.d/resource.d/AudibleAlarm
@@ -37,6 +39,7 @@ usr/lib/heartbeat/ccm
 usr/lib/heartbeat/ccm_testclient
 usr/lib/heartbeat/clmtest
 usr/lib/heartbeat/dopd
+usr/lib/heartbeat/drbd-peer-outdater
 usr/lib/heartbeat/heartbeat
 usr/lib/heartbeat/ipfail
 usr/lib/heartbeat/mlock
@@ -63,8 +66,6 @@ usr/share/doc/heartbeat/apphbd.cf
 usr/share/doc/heartbeat/authkeys
 usr/share/doc/heartbeat/ha.cf
 usr/share/doc/heartbeat/haresources
-usr/share/heartbeat/hb_api.py
-usr/share/heartbeat/ha_test.py
 usr/share/heartbeat/BasicSanityCheck
 usr/share/heartbeat/ResourceManager
 usr/share/heartbeat/TestHeartbeatComm
@@ -83,7 +84,9 @@ usr/share/heartbeat/cts/extracttests.py
 usr/share/heartbeat/cts/getpeinputs.sh
 usr/share/heartbeat/ha_config
 usr/share/heartbeat/ha_propagate
+usr/share/heartbeat/ha_test.py
 usr/share/heartbeat/hb_addnode
+usr/share/heartbeat/hb_api.py
 usr/share/heartbeat/hb_delnode
 usr/share/heartbeat/hb_setsite
 usr/share/heartbeat/hb_setweight
@@ -96,10 +99,7 @@ usr/share/man/man1/hb_addnode.1.gz
 usr/share/man/man1/hb_delnode.1.gz
 usr/share/man/man1/hb_standby.1.gz
 usr/share/man/man1/hb_takeover.1.gz
+usr/share/man/man5/authkeys.5.gz
+usr/share/man/man5/ha.cf.5.gz
 usr/share/man/man8/apphbd.8.gz
 usr/share/man/man8/heartbeat.8.gz
-usr/share/man/man5/ha.cf.5.gz
-usr/share/man/man5/authkeys.5.gz
-etc/ha.d/rc.d/ip-request 
-etc/ha.d/rc.d/ip-request-resp 
-usr/lib/heartbeat/drbd-peer-outdater

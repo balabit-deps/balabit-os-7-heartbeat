@@ -2,20 +2,75 @@ Source: heartbeat
 Section: admin
 Priority: optional
 Maintainer: Debian HA Maintainers <debian-ha-maintainers@lists.alioth.debian.org>
-Uploaders: Martin Loschwitz <madkiss@debian.org>, Anibal Monsalve Salazar <anibal@debian.org>, Simon Horman <horms@debian.org>, Frederik Schüler <fs@debian.org>
-Build-Depends: debhelper (>= 7), resource-agents-dev, libcluster-glue-dev, cluster-glue-dev, libpils2-dev, libplumb2-dev, libplumbgpl2-dev, libstonith1-dev, libglib2.0-dev, perl, net-tools, iputils-ping, python, psmisc, iproute, libtool, libcurl4-openssl-dev | libcurl3-openssl-dev, libxml2-dev, bison, flex, uuid-dev, lynx, libbz2-dev, zlib1g-dev, libsensors4-dev | libsensors-dev, libltdl3-dev, swig, openssh-client, libgnutls-dev, python-central (>= 0.5), python-dev, libpam0g-dev, libncurses5-dev, psmisc, libopenhpi-dev, libopenipmi-dev, autoconf, automake, libtool, docbook-xsl, xsltproc, docbook-xml
-Standards-Version: 3.9.2
-Vcs-Hg: http://hg.debian.org/hg/debian-ha/heartbeat
-Vcs-Browser: http://hg.debian.org/hg/debian-ha/heartbeat
-XS-Python-Version: current
+Uploaders:
+ Valentin Vidic <Valentin.Vidic@CARNet.hr>
+Build-Depends:
+ autoconf,
+ automake,
+ bison,
+ cluster-glue-dev,
+ debhelper (>= 11),
+ dh-python,
+ docbook-xml,
+ docbook-xsl,
+ flex,
+ gawk,
+ iproute2 [linux-any],
+ inetutils-ping | iputils-ping | ping,
+ libbz2-dev,
+ libglib2.0-dev,
+ libgnutls28-dev,
+ libltdl3-dev,
+ libncurses5-dev,
+ libopenhpi-dev,
+ libopenipmi-dev,
+ libpam0g-dev,
+ libpils2-dev,
+ libplumb2-dev,
+ libplumbgpl2-dev,
+ libsensors4-dev | libsensors-dev,
+ libstonith1-dev,
+ libtool,
+ libxml2-dev,
+ lynx,
+ net-tools,
+ openssh-client,
+ perl,
+ psmisc,
+ python-dev (>= 2.6.6-3~),
+ resource-agents,
+ systemd [linux-any],
+ swig,
+ uuid-dev,
+ xsltproc,
+ zlib1g-dev,
+Standards-Version: 4.1.3
+Vcs-Git: https://anonscm.debian.org/git/debian-ha/heartbeat.git
+Vcs-Browser: https://anonscm.debian.org/cgit/debian-ha/heartbeat.git
 Homepage: http://www.linux-ha.org/
 
 Package: heartbeat
 Architecture: any
-Depends: ${python:Depends}, ${misc:Depends}, ${shlibs:Depends}, cluster-glue, iproute, adduser, iputils-ping, psmisc, gawk, mawk, libxml2-utils, libpam-runtime (>= 0.76-14), resource-agents
-Recommends: rsyslog | system-log-daemon, logrotate, iptables, pacemaker (>= 1.0.6)
-Provides: cluster-messaging-framework
-XB-Python-Version: ${python:Versions}
+Depends:
+ adduser,
+ cluster-glue,
+ gawk,
+ iproute2 [linux-any],
+ inetutils-ping | iputils-ping | ping,
+ libpam-runtime (>= 0.76-14),
+ libxml2-utils,
+ psmisc,
+ resource-agents,
+ ${misc:Depends},
+ ${python:Depends},
+ ${shlibs:Depends},
+Recommends:
+ iptables,
+ logrotate,
+ pacemaker (>= 1.0.6),
+ rsyslog | system-log-daemon,
+Provides:
+ cluster-messaging-framework,
 Description: Subsystem for High-Availability Linux
  heartbeat is a messaging subsystem for high availability which implements
  serial, UDP, and PPP/UDP heartbeats.
@@ -26,9 +81,13 @@ Description: Subsystem for High-Availability Linux
 Package: heartbeat-dev
 Section: devel
 Architecture: any
-Depends: heartbeat (= ${binary:Version}), ${misc:Depends}
-Conflicts: libstonith-dev (<< 2.0.8-3), libpils-dev (<< 2.0.8-3), pacemaker-dev (<< 1.0.1-1)
-XB-Python-Version: ${python:Versions}
+Depends:
+ heartbeat (= ${binary:Version}),
+ ${misc:Depends},
+Conflicts:
+ libpils-dev (<< 2.0.8-3),
+ libstonith-dev (<< 2.0.8-3),
+ pacemaker-dev (<< 1.0.1-1),
 Description: Subsystem for High-Availability Linux - development files
  heartbeat is a messaging subsystem for high availability which implements
  serial, UDP, and PPP/UDP heartbeats.
@@ -41,9 +100,13 @@ Description: Subsystem for High-Availability Linux - development files
 Package: libheartbeat2
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Replaces: heartbeat (<= 2.99.2+sles11r7-0+1)
-Conflicts: heartbeat (<= 2.99.2+sles11r7-0+1)
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Replaces:
+ heartbeat (<= 2.99.2+sles11r7-0+1),
+Conflicts:
+ heartbeat (<= 2.99.2+sles11r7-0+1),
 Description: Subsystem for High-Availability Linux (libraries)
  heartbeat is a messaging subsystem for high availability which implements
  serial, UDP, and PPP/UDP heartbeats.
@@ -58,9 +121,13 @@ Description: Subsystem for High-Availability Linux (libraries)
 Package: libheartbeat2-dev
 Section: libdevel
 Architecture: any
-Depends: ${misc:Depends}, libheartbeat2 (= ${binary:Version})
-Replaces: heartbeat (<= 2.99.2+sles11r7-0+1)
-Conflicts: heartbeat (<= 2.99.2+sles11r7-0+1)
+Depends:
+ libheartbeat2 (= ${binary:Version}),
+ ${misc:Depends},
+Replaces:
+ heartbeat (<= 2.99.2+sles11r7-0+1),
+Conflicts:
+ heartbeat (<= 2.99.2+sles11r7-0+1),
 Description: Subsystem for High-Availability Linux (development files)
  heartbeat is a messaging subsystem for high availability which implements
  serial, UDP, and PPP/UDP heartbeats.

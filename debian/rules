@@ -18,6 +18,11 @@ DTMP:=`pwd`/debian/tmp
 RELEASE := $(shell dpkg-parsechangelog | awk '/^Version: / { print $$2 }')
 UPSTREAM := $(shell echo "$(RELEASE)" | sed 's/:\?\([0-9\.]\+\)-[0-9].*/\1/')
 
+# drbd is not built on kfreebsd
+ifeq ($(DEB_HOST_ARCH_OS), kfreebsd)
+DH_INSTALL_EXCLUDE=-Xdopd -Xdrbd
+endif
+
 build: build-arch build-indep
 build-arch: build-stamp
 build-indep: build-stamp
@@ -51,7 +56,7 @@ clean:
 		debian/libstonith0 debian/libstonith-dev debian/stonith
 	
 	# Zero autoconf foo
-	rm -f config.status libltdl/config.log libltdl/config.status 
+	rm -f config.status libltdl/config.log libltdl/config.status
 
 install: build install-stamp
 install-stamp:
@@ -99,34 +104,17 @@ install-stamp:
 	! test -e ./debian/tmp/usr/lib/tmpfiles.d/heartbeat.conf || \
 	mv ./debian/tmp/usr/lib/tmpfiles.d/heartbeat.conf ./debian/heartbeat.tmpfile
 	! test -e ./debian/tmp/lib/systemd/system/heartbeat.service || \
-	mv ./debian/tmp/lib/systemd/system/heartbeat.service ./debian/heartneat.service
+	mv ./debian/tmp/lib/systemd/system/heartbeat.service ./debian/heartbeat.service
 	! test -e ./debian/tmp/etc/init.d/heartbeat || \
 	mv ./debian/tmp/etc/init.d/heartbeat ./debian/heartbeat.init
 
-	dh_install --source=debian/tmp --fail-missing
+	# python modules will be compiled in postinst
+	rm -f ./debian/tmp/usr/share/heartbeat/cts/*.py[co]
+
+	dh_install $(DH_INSTALL_EXCLUDE)
+	dh_missing --fail-missing
 
 binary-indep: build install
-	
-	dh_testdir -i
-	dh_testroot -i
-	dh_installdebconf -i
-	dh_installdocs -i
-	dh_installexamples -i
-	dh_installinit -i -n -u 'defaults 20 32'
-	dh_installman -i
-	dh_installchangelogs -i
-	dh_link -i
-	dh_strip -i
-	dh_compress -i
-	dh_fixperms -i
-	dh_makeshlibs -i -V
-	dh_installdeb -i
-	dh_perl -i
-	dh_python2 -i -V 2.6- --no-guessing-versions --no-guessing-deps
-	dh_shlibdeps -i
-	dh_gencontrol -i
-	dh_md5sums -i
-	dh_builddeb -i
 
 binary-arch: build install
 	# remove duplicate doc file
@@ -138,6 +126,7 @@ binary-arch: build install
 	dh_installdocs -a
 	dh_installexamples -a
 	dh_installinit -a -n -u 'defaults 20 32'
+	dh_installsystemd -a
 	dh_installman -a
 	dh_installchangelogs -a `pwd`/doc/ChangeLog
 	dh_lintian -a
@@ -151,9 +140,9 @@ binary-arch: build install
 	rm -rf `pwd`/debian/heartbeat-common/usr/share/doc/heartbeat/COPYING.gz
 	
 	dh_makeshlibs -a -V
-	dh_installdeb -a
 	dh_perl -a
 	dh_python2 -a -V 2.6- --no-guessing-versions --no-guessing-deps
+	dh_installdeb -a
 	dh_shlibdeps -a
 	dh_gencontrol -a
 	dh_md5sums -a
