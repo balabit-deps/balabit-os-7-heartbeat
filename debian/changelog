@@ -1,3 +1,9 @@
+heartbeat (1:3.0.6-7bb1) bionic; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Tue, 07 Aug 2018 15:51:49 +0200
+
 heartbeat (1:3.0.6-7) unstable; urgency=medium
 
   [ Christoph Berg ]
